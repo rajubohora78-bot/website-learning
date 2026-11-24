@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raju Bohora — Documents &amp; Resources</title>
+  <meta name="description" content="Minimalist PDF documents and study resources archive by Raju Bohora (rajubohora.com.np)." />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Newsreader (Editorial Serif) & Inter (Clean Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+
+  <!-- Custom Design Tokens matching the warm editorial paper aesthetic -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            serif: ['Newsreader', 'Georgia', 'serif'],
+          },
+          colors: {
+            paper: '#FAF9F6',
+            ink: '#1A1A1A',
+            muted: '#6B6860',
+            hairline: '#E5E2DC',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body id="top" class="bg-paper text-ink font-sans antialiased selection:bg-stone-200 selection:text-ink">
+
+  <!-- Main Centered Editorial Container -->
+  <div class="max-w-3xl mx-auto px-5 sm:px-8 py-12 sm:py-20">
+
+    <!-- General Header Section -->
+    <header class="mb-8 sm:mb-10">
+      <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
+        <div>
+          <h1 class="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-ink">
+            Raju Bohora
+          </h1>
+          <p class="mt-1 text-xs font-medium uppercase tracking-widest text-muted">
+            Documents &amp; Resources
+          </p>
+        </div>
+        <a
+          href="https://www.rajubohora.com.np/"
+          class="text-xs font-medium uppercase tracking-widest text-muted hover:text-ink transition"
+        >
+          rajubohora.com.np
+        </a>
+      </div>
+    </header>
+
+    <!-- Instant Search & Category Filter Pills -->
+    <section aria-label="Search and filter documents" class="mb-8 space-y-4">
+      <!-- Search Input -->
+      <div class="relative">
+        <svg class="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+        </svg>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search documents by title, subject, or keyword..."
+          class="w-full bg-white border border-hairline rounded-xl pl-10 pr-16 py-2.5 text-sm text-ink placeholder-stone-400 focus:outline-none focus:border-stone-400 focus:ring-2 focus:ring-stone-200/70 transition"
+        />
+        <button
+          id="clearSearchBtn"
+          type="button"
+          aria-label="Clear search"
+          class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-muted hover:text-ink px-2 py-1 rounded-md"
+        >
+          Clear
+        </button>
+      </div>
+
+      <!-- Category Pills & Result Count -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div id="categoryFilters" class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by category">
+          <button
+            type="button"
+            data-category="All"
+            class="category-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-ink text-paper border border-ink transition"
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-category="Question Sets"
+            class="category-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-muted border border-hairline hover:border-stone-400 hover:text-ink transition"
+          >
+            Question Sets
+          </button>
+          <button
+            type="button"
+            data-category="Notes"
+            class="category-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-muted border border-hairline hover:border-stone-400 hover:text-ink transition"
+          >
+            Notes
+          </button>
+          <button
+            type="button"
+            data-category="Papers"
+            class="category-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-muted border border-hairline hover:border-stone-400 hover:text-ink transition"
+          >
+            Papers
+          </button>
+        </div>
+
+        <span id="resultCount" class="text-xs text-muted tabular-nums">Showing 3 documents</span>
+      </div>
+    </section>
+
+    <!--
+      ==========================================================================
+      HOW TO ADD FUTURE PDFs (GOOGLE DRIVE OR LOCAL FILES):
+      1. In Google Drive, set your PDF's sharing to "Anyone with the link" (Viewer).
+      2. Copy any <article class="pdf-item"> block below and paste it inside <main id="pdfList">.
+      3. Paste your standard Google Drive sharing link (e.g. https://drive.google.com/file/d/FILE_ID/view?usp=sharing)
+         OR a local filename (e.g. notes.pdf) into data-drive-link="...".
+      4. Set data-category to "Question Sets", "Notes", or "Papers".
+      5. The script automatically converts Google Drive links into:
+           - Embedded /preview links for the Preview modal
+           - Direct /uc?export=download links for the Download button
+      ==========================================================================
+    -->
+
+    <!-- Document List -->
+    <main id="pdfList" class="divide-y divide-hairline border-t border-b border-hairline">
+
+      <!-- Document 1: Compulsory Mathematics — Set 1 -->
+      <article
+        class="pdf-item py-6 transition-colors"
+        data-category="Question Sets"
+        data-title="Compulsory Mathematics — Set 1"
+        data-tags="class 9 model set 1 compulsory mathematics math अनिवार्य गणित fm 75"
+        data-drive-link="https://drive.google.com/file/d/1kuoXbtG2_FM1-q1gc27Jk6_Ez-L87qTY/view?usp=drivesdk"
+      >
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1.5 flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-stone-200/70 text-ink font-medium">
+                Question Sets
+              </span>
+              <span class="text-stone-300">•</span>
+              <span class="text-muted">Class 9 • Model Set 1 • F.M. 75</span>
+            </div>
+
+            <h2 class="text-base sm:text-lg font-medium text-ink leading-snug">
+              Compulsory Mathematics — Set 1
+            </h2>
+
+            <p class="text-sm text-muted leading-relaxed">
+              Time: 3 hrs. | Compulsory Mathematics (अनिवार्य गणित)
+            </p>
+          </div>
+
+          <!-- Preview & Download Actions (populated automatically by script) -->
+          <div class="flex items-center gap-2.5 shrink-0 pt-1 sm:pt-0">
+            <button
+              type="button"
+              class="preview-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-ink bg-white border border-hairline hover:border-stone-400 transition"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Preview
+            </button>
+
+            <a
+              href="https://drive.google.com/file/d/1kuoXbtG2_FM1-q1gc27Jk6_Ez-L87qTY/view?usp=drivesdk"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="download-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-paper bg-ink hover:bg-stone-800 transition"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+              </svg>
+              Download
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Document 2: Compulsory Mathematics — Set 2 -->
+      <article
+        class="pdf-item py-6 transition-colors"
+        data-category="Question Sets"
+        data-title="Compulsory Mathematics — Set 2"
+        data-tags="class 9 practice paper set 2 compulsory mathematics math अनिवार्य गणित fm 75"
+        data-drive-link="https://drive.google.com/file/d/1TdHi8u45yzZxmBjvYvSHWcLUy5nCW1KI/view?usp=drivesdk"
+      >
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1.5 flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-stone-200/70 text-ink font-medium">
+                Question Sets
+              </span>
+              <span class="text-stone-300">•</span>
+              <span class="text-muted">Class 9 • Practice Paper • F.M. 75</span>
+            </div>
+
+            <h2 class="text-base sm:text-lg font-medium text-ink leading-snug">
+              Compulsory Mathematics — Set 2
+            </h2>
+
+            <p class="text-sm text-muted leading-relaxed">
+              Time: 3 hrs. | Compulsory Mathematics (अनिवार्य गणित)
+            </p>
+          </div>
+
+          <!-- Preview & Download Actions -->
+          <div class="flex items-center gap-2.5 shrink-0 pt-1 sm:pt-0">
+            <button
+              type="button"
+              class="preview-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-ink bg-white border border-hairline hover:border-stone-400 transition"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Preview
+            </button>
+
+            <a
+              href="https://drive.google.com/file/d/1TdHi8u45yzZxmBjvYvSHWcLUy5nCW1KI/view?usp=drivesdk"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="download-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-paper bg-ink hover:bg-stone-800 transition"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+              </svg>
+              Download
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Document 3: Compulsory Mathematics — Set 3 -->
+      <article
+        class="pdf-item py-6 transition-colors"
+        data-category="Question Sets"
+        data-title="Compulsory Mathematics — Set 3"
+        data-tags="class 9 set 3 compulsory mathematics math अनिवार्य गणित fm 75"
+        data-drive-link="https://drive.google.com/file/d/1SVyn5duixILzmhCPonCjA6lhGB-kWOTd/view?usp=drivesdk"
+      >
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1.5 flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-stone-200/70 text-ink font-medium">
+                Question Sets
+              </span>
+              <span class="text-stone-300">•</span>
+              <span class="text-muted">Class 9 • Set 3 • F.M. 75</span>
+            </div>
+
+            <h2 class="text-base sm:text-lg font-medium text-ink leading-snug">
+              Compulsory Mathematics — Set 3
+            </h2>
+
+            <p class="text-sm text-muted leading-relaxed">
+              Time: 3 hrs. | Compulsory Mathematics (अनिवार्य गणित)
+            </p>
+          </div>
+
+          <!-- Preview & Download Actions -->
+          <div class="flex items-center gap-2.5 shrink-0 pt-1 sm:pt-0">
+            <button
+              type="button"
+              class="preview-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-ink bg-white border border-hairline hover:border-stone-400 transition"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Preview
+            </button>
+
+            <a
+              href="https://drive.google.com/file/d/1SVyn5duixILzmhCPonCjA6lhGB-kWOTd/view?usp=drivesdk"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="download-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-paper bg-ink hover:bg-stone-800 transition"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+              </svg>
+              Download
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+    <!-- Empty Filter/Search State -->
+    <div id="emptyState" class="hidden py-14 text-center border-b border-hairline">
+      <p class="text-muted text-sm mb-3">No documents matched your current filter or search.</p>
+      <button
+        id="resetFiltersBtn"
+        type="button"
+        class="px-4 py-2 rounded-lg text-xs font-medium bg-white border border-hairline text-ink hover:border-stone-400 transition"
+      >
+        Reset filters
+      </button>
+    </div>
+
+    <!-- Minimalist Footer -->
+    <footer class="mt-14 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-muted">
+      <p>&copy; 2026 Raju Bohora · <a href="https://www.rajubohora.com.np/" class="hover:text-ink transition underline underline-offset-4">rajubohora.com.np</a></p>
+      <a href="#top" class="hover:text-ink transition">Back to top &uarr;</a>
+    </footer>
+
+  </div>
+
+  <!-- Responsive Inline Modal PDF Previewer -->
+  <div
+    id="pdfModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-stone-950/60 backdrop-blur-xs"
+  >
+    <div class="bg-white w-full max-w-4xl h-[88vh] rounded-2xl shadow-2xl border border-hairline flex flex-col overflow-hidden">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between gap-4 px-4 sm:px-6 py-3.5 border-b border-hairline bg-paper">
+        <div class="min-w-0">
+          <p class="text-[11px] uppercase tracking-wider text-muted font-medium">PDF Preview</p>
+          <h3 id="modalTitle" class="text-sm sm:text-base font-medium text-ink truncate">
+            Document Title
+          </h3>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <a
+            id="modalDownloadLink"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium text-paper bg-ink hover:bg-stone-800 transition"
+          >
+            Download PDF
+          </a>
+          <button
+            id="closeModalBtn"
+            type="button"
+            aria-label="Close preview"
+            class="p-2 rounded-lg text-muted hover:text-ink hover:bg-stone-200/60 transition"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Iframe Viewer + Direct Link Fallback Bar -->
+      <div class="relative flex-1 bg-stone-100 flex flex-col">
+        <iframe
+          id="pdfFrame"
+          src=""
+          title="PDF Document Preview"
+          allow="autoplay"
+          class="w-full flex-1 border-0"
+        ></iframe>
+        <div class="px-4 py-2.5 bg-paper border-t border-hairline flex items-center justify-between gap-2 text-xs text-muted">
+          <span>Viewing on mobile or having trouble loading?</span>
+          <a
+            id="modalOpenNewTab"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-medium text-ink underline underline-offset-4 hover:text-muted"
+          >
+            Open PDF directly &nearr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Drive URL Conversion, Search, Category Filter & Modal Logic -->
+  <script>
+    (function () {
+      const searchInput = document.getElementById('searchInput');
+      const clearSearchBtn = document.getElementById('clearSearchBtn');
+      const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+      const categoryPills = document.querySelectorAll('.category-pill');
+      const pdfItems = document.querySelectorAll('.pdf-item');
+      const pdfList = document.getElementById('pdfList');
+      const emptyState = document.getElementById('emptyState');
+      const resultCount = document.getElementById('resultCount');
+
+      // Modal elements
+      const pdfModal = document.getElementById('pdfModal');
+      const pdfFrame = document.getElementById('pdfFrame');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDownloadLink = document.getElementById('modalDownloadLink');
+      const modalOpenNewTab = document.getElementById('modalOpenNewTab');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+
+      let activeCategory = 'All';
+
+      /**
+       * Parses a standard Google Drive sharing URL or a local PDF path.
+       * - Google Drive URL -> returns embeddable /preview URL & direct /uc?export=download URL
+       * - Local .pdf file -> returns the path directly for both preview and download
+       */
+      function resolvePdfUrls(rawUrl) {
+        const trimmed = (rawUrl || '').trim();
+        const driveMatch =
+          trimmed.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) ||
+          trimmed.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/) ||
+          trimmed.match(/drive\.google\.com\/uc\?.*id=([a-zA-Z0-9_-]+)/);
+
+        if (driveMatch && driveMatch[1]) {
+          const fileId = driveMatch[1];
+          return {
+            isDrive: true,
+            previewUrl: `https://drive.google.com/file/d/${fileId}/preview`,
+            downloadUrl: `https://drive.google.com/uc?export=download&id=${fileId}`,
+            directUrl: `https://drive.google.com/file/d/${fileId}/view`,
+          };
+        }
+
+        return {
+          isDrive: false,
+          previewUrl: trimmed,
+          downloadUrl: trimmed,
+          directUrl: trimmed,
+        };
+      }
+
+      // Initialize each document card's Preview and Download links
+      pdfItems.forEach((item) => {
+        const rawLink = item.dataset.driveLink || '';
+        const title = item.dataset.title || 'Document';
+        const urls = resolvePdfUrls(rawLink);
+
+        const previewBtn = item.querySelector('.preview-btn');
+        const downloadBtn = item.querySelector('.download-btn');
+
+        if (downloadBtn) {
+          downloadBtn.href = urls.downloadUrl;
+          if (!urls.isDrive) {
+            downloadBtn.setAttribute('download', '');
+            downloadBtn.removeAttribute('target');
+          }
+        }
+
+        if (previewBtn) {
+          previewBtn.addEventListener('click', () => {
+            openModal(urls, title);
+          });
+        }
+      });
+
+      // Filter documents by active category and search query
+      function filterDocuments() {
+        const query = searchInput.value.trim().toLowerCase();
+        clearSearchBtn.classList.toggle('hidden', query.length === 0);
+
+        let visibleCount = 0;
+
+        pdfItems.forEach((item) => {
+          const category = item.dataset.category || '';
+          const title = (item.dataset.title || '').toLowerCase();
+          const tags = (item.dataset.tags || '').toLowerCase();
+          const content = item.textContent.toLowerCase();
+
+          const matchesCategory = activeCategory === 'All' || category === activeCategory;
+          const matchesQuery = !query || title.includes(query) || tags.includes(query) || content.includes(query);
+
+          if (matchesCategory && matchesQuery) {
+            item.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+
+        resultCount.textContent = `Showing ${visibleCount} ${visibleCount === 1 ? 'document' : 'documents'}`;
+        emptyState.classList.toggle('hidden', visibleCount > 0);
+        pdfList.classList.toggle('hidden', visibleCount === 0);
+      }
+
+      // Category pill selection
+      categoryPills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          activeCategory = pill.dataset.category;
+
+          categoryPills.forEach((btn) => {
+            const isSelected = btn.dataset.category === activeCategory;
+            btn.classList.toggle('bg-ink', isSelected);
+            btn.classList.toggle('text-paper', isSelected);
+            btn.classList.toggle('border-ink', isSelected);
+            btn.classList.toggle('bg-white', !isSelected);
+            btn.classList.toggle('text-muted', !isSelected);
+            btn.classList.toggle('border-hairline', !isSelected);
+          });
+
+          filterDocuments();
+        });
+      });
+
+      searchInput.addEventListener('input', filterDocuments);
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        filterDocuments();
+        searchInput.focus();
+      });
+
+      resetFiltersBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        activeCategory = 'All';
+        categoryPills.forEach((btn) => {
+          const isAll = btn.dataset.category === 'All';
+          btn.classList.toggle('bg-ink', isAll);
+          btn.classList.toggle('text-paper', isAll);
+          btn.classList.toggle('border-ink', isAll);
+          btn.classList.toggle('bg-white', !isAll);
+          btn.classList.toggle('text-muted', !isAll);
+          btn.classList.toggle('border-hairline', !isAll);
+        });
+        filterDocuments();
+      });
+
+      // Open modal PDF preview
+      function openModal(urls, title) {
+        modalTitle.textContent = title;
+        modalDownloadLink.href = urls.downloadUrl;
+        modalOpenNewTab.href = urls.directUrl;
+        pdfFrame.src = urls.previewUrl;
+
+        if (!urls.isDrive) {
+          modalDownloadLink.setAttribute('download', '');
+          modalDownloadLink.removeAttribute('target');
+        } else {
+          modalDownloadLink.removeAttribute('download');
+          modalDownloadLink.setAttribute('target', '_blank');
+        }
+
+        pdfModal.classList.remove('hidden');
+        pdfModal.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      // Close modal PDF preview
+      function closeModal() {
+        pdfModal.classList.add('hidden');
+        pdfModal.classList.remove('flex');
+        pdfFrame.src = '';
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      closeModalBtn.addEventListener('click', closeModal);
+
+      pdfModal.addEventListener('click', (e) => {
+        if (e.target === pdfModal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !pdfModal.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
